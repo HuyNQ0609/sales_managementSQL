@@ -1,0 +1,32 @@
+create database sales_management;
+use sales_management;
+
+create table Customers (
+    customer_id int primary key auto_increment,
+    customer_name varchar(20) not null,
+    customer_age int not null
+);
+
+create table Orders (
+    order_id int primary key auto_increment,
+    customer_id int not null,
+    order_date datetime not null,
+    order_total_price double not null,
+    unique (customer_id),
+    foreign key (customer_id) references Customers(customer_id)
+);
+
+create table Products (
+    product_id int primary key auto_increment,
+    product_name varchar(20) not null,
+    product_price double not null
+);
+
+create table OrderDetails (
+    order_id int not null,
+    product_id int not null ,
+    order_quantity int not null,
+    unique (order_id, product_id),
+    foreign key (order_id) references Orders(order_id),
+    foreign key (product_id) references Products(product_id)
+);
